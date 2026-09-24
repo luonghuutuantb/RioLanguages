@@ -1,0 +1,603 @@
+/* ==========================================================================
+   Rio Chinese - Handwriting Recognition Stylesheet (css/chinese-handwriting.css)
+   Canvas Điền Tự Cách (田字格), Thanh Gợi Ý Ứng Viên & Bàn Phím Viết Tay
+   ========================================================================== */
+
+/* --- Nút kích hoạt viết tay trên ô tìm kiếm & ô nhập liệu --- */
+.zh-hw-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #fbbf24;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.zh-hw-btn:hover {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: #fbbf24;
+  color: #fff;
+  transform: scale(1.06);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
+}
+
+.zh-hw-btn:active {
+  transform: scale(0.96);
+}
+
+.zh-hw-btn.active {
+  background: linear-gradient(135deg, #ef4444, #f59e0b);
+  border-color: #f59e0b;
+  color: #fff;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.5);
+}
+
+/* Nút viết tay đặt trong thanh tìm kiếm có icon kính lúp */
+.zh-search-box {
+  position: relative;
+}
+
+.zh-search-box .zh-hw-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.zh-search-box.has-hw-btn input {
+  padding-right: 44px !important;
+}
+
+/* Nút viết tay nổi / trên header Tiếng Trung */
+.zh-header-handwriting-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.18) 0%, rgba(245, 158, 11, 0.22) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  color: #fef08a;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.zh-header-handwriting-pill:hover {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.3) 0%, rgba(245, 158, 11, 0.35) 100%);
+  border-color: #fbbf24;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.35);
+}
+
+/* ==========================================================================
+   MODAL / BOTTOM SHEET BẢNG VIẾT TAY
+   ========================================================================== */
+.zh-hw-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 10, 18, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.zh-hw-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.zh-hw-panel {
+  background: rgba(18, 22, 34, 0.96);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 35px rgba(245, 158, 11, 0.15);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: zhHwPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+@keyframes zhHwPopIn {
+  from {
+    transform: scale(0.92) translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* --- Panel Header --- */
+.zh-hw-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.12) 0%, rgba(245, 158, 11, 0.08) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.zh-hw-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.zh-hw-title-icon {
+  font-size: 18px;
+  filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.5));
+}
+
+.zh-hw-title-text {
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.3px;
+}
+
+.zh-hw-target-badge {
+  font-size: 11px;
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.15);
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.zh-hw-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.zh-hw-close-btn:hover {
+  background: rgba(239, 68, 68, 0.3);
+  color: #fff;
+  border-color: #ef4444;
+  transform: rotate(90deg);
+}
+
+/* --- Preview & Connected Input View --- */
+.zh-hw-input-preview-bar {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  gap: 8px;
+}
+
+.zh-hw-preview-text {
+  flex: 1;
+  font-size: 14px;
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.zh-hw-preview-text:empty::before {
+  content: "Chưa có nội dung nhập...";
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 12px;
+}
+
+.zh-hw-quick-act-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.zh-hw-quick-act-btn:hover {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+/* --- Candidates Bar (Thanh gợi ý ứng viên) --- */
+.zh-hw-candidates-row {
+  display: flex;
+  align-items: center;
+  min-height: 58px;
+  background: rgba(13, 16, 26, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 8px;
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.zh-hw-candidates-row::-webkit-scrollbar {
+  display: none;
+}
+
+.zh-hw-candidates-empty {
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 0;
+}
+
+.zh-hw-candidate-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  height: 48px;
+  padding: 2px 8px;
+  margin: 0 3px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.zh-hw-candidate-item:hover,
+.zh-hw-candidate-item:focus {
+  background: rgba(245, 158, 11, 0.22);
+  border-color: #fbbf24;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.zh-hw-candidate-item:active {
+  transform: scale(0.94);
+}
+
+.zh-hw-cand-hanzi {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Serif SC', serif;
+}
+
+.zh-hw-cand-sub {
+  font-size: 9px;
+  color: #fbbf24;
+  margin-top: 1px;
+  font-weight: 600;
+  white-space: nowrap;
+  max-width: 48px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+/* Đang nhận diện spinner */
+.zh-hw-recognizing-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(245, 158, 11, 0.3);
+  border-top-color: #fbbf24;
+  border-radius: 50%;
+  animation: zhHwSpin 0.6s linear infinite;
+}
+
+@keyframes zhHwSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- Khung Vẽ Điền Tự Cách (Tianzige Canvas Stage) --- */
+.zh-hw-canvas-stage {
+  padding: 14px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, rgba(30, 36, 56, 0.6) 0%, rgba(15, 18, 28, 0.95) 100%);
+  position: relative;
+}
+
+.zh-hw-tianzige-box {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  border: 2px solid rgba(239, 68, 68, 0.45);
+  border-radius: 12px;
+  background-color: #0f1320;
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.7), 0 8px 24px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  touch-action: none;
+}
+
+/* Lưới Điền Tự Cách & Mễ Tự Cách (米字格) vẽ bằng CSS SVG */
+.zh-hw-grid-guide {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: 
+    linear-gradient(45deg, transparent calc(50% - 0.75px), rgba(239, 68, 68, 0.6) calc(50% - 0.75px), rgba(239, 68, 68, 0.6) calc(50% + 0.75px), transparent calc(50% + 0.75px)),
+    linear-gradient(-45deg, transparent calc(50% - 0.75px), rgba(239, 68, 68, 0.6) calc(50% - 0.75px), rgba(239, 68, 68, 0.6) calc(50% + 0.75px), transparent calc(50% + 0.75px)),
+    linear-gradient(to right, rgba(239, 68, 68, 0.8) 50%, transparent 50%),
+    linear-gradient(to bottom, rgba(239, 68, 68, 0.8) 50%, transparent 50%);
+  background-size: 
+    100% 100%,
+    100% 100%,
+    10px 1.5px,
+    1.5px 10px;
+  background-position: 
+    center,
+    center,
+    center 50%,
+    50% center;
+  background-repeat: 
+    no-repeat,
+    no-repeat,
+    repeat-x,
+    repeat-y;
+}
+
+/* Canvas viết tay thực tế */
+.zh-hw-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  touch-action: none;
+  z-index: 2;
+}
+
+/* Watermark hướng dẫn viết trong ô nếu chưa có nét */
+.zh-hw-watermark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.18);
+  font-size: 13px;
+  font-weight: 600;
+  gap: 6px;
+  z-index: 1;
+  transition: opacity 0.2s ease;
+}
+
+.zh-hw-watermark.hidden {
+  opacity: 0;
+}
+
+.zh-hw-watermark-icon {
+  font-size: 32px;
+  opacity: 0.3;
+}
+
+/* Badge thông tin chữ được chọn (Pinyin & Hán Việt chi tiết) */
+.zh-hw-detail-card {
+  margin: 0 16px 10px;
+  padding: 8px 12px;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.zh-hw-detail-main {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.zh-hw-detail-hanzi {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  font-family: 'PingFang SC', 'Microsoft YaHei', serif;
+}
+
+.zh-hw-detail-pinyin {
+  color: #fbbf24;
+  font-weight: 700;
+}
+
+.zh-hw-detail-vi {
+  color: var(--text-secondary);
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.zh-hw-speak-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fbbf24;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.zh-hw-speak-btn:hover {
+  background: rgba(245, 158, 11, 0.3);
+  transform: scale(1.1);
+}
+
+/* --- Action Bar (Thanh công cụ bên dưới) --- */
+.zh-hw-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 14px;
+  background: rgba(13, 16, 26, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.zh-hw-actions-left,
+.zh-hw-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.zh-hw-tool-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  padding: 7px 11px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.zh-hw-tool-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.zh-hw-tool-btn:active {
+  transform: scale(0.95);
+}
+
+.zh-hw-tool-btn.warn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.zh-hw-tool-btn.primary {
+  background: linear-gradient(135deg, #ef4444, #f59e0b);
+  border-color: #f59e0b;
+  color: #fff;
+  font-weight: 700;
+}
+
+.zh-hw-tool-btn.primary:hover {
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.4);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   MOBILE & RESPONSIVE BEHAVIOR (BOTTOM SHEET)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .zh-hw-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .zh-hw-panel {
+    max-width: 100%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+    border-bottom: none;
+    max-height: 90vh;
+    animation: zhHwSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    padding-bottom: env(safe-area-inset-bottom, 10px);
+  }
+
+  @keyframes zhHwSlideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .zh-hw-tianzige-box {
+    max-width: 260px;
+  }
+
+  .zh-hw-cand-hanzi {
+    font-size: 20px;
+  }
+
+  .zh-hw-candidate-item {
+    min-width: 46px;
+    height: 44px;
+  }
+
+  .zh-hw-tool-btn {
+    padding: 6px 9px;
+    font-size: 11px;
+  }
+}

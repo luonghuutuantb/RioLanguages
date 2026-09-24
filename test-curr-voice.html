@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test Active Voice</title></head>
+<body>
+<pre id="log">Testing active voice...</pre>
+<script src="js/storage.js"></script>
+<script src="js/audio.js"></script>
+<script>
+  function test() {
+    const audio = new AudioController();
+    setTimeout(() => {
+      const voices = window.speechSynthesis.getVoices();
+      document.getElementById('log').textContent = 
+        'Voices loaded count: ' + voices.length + '\n';
+      
+      // Check female voice selection
+      const femaleUtter = new SpeechSynthesisUtterance("Hello world");
+      // Simulate selection logic from audio.js
+      const enVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en'));
+      const femaleVoice = enVoices.find(v => /female|zira|jenny|samantha|victoria|karen|susan|cynthia|google.*en/i.test(v.name));
+      const maleVoice = enVoices.find(v => /male|david|mark|guy|james|george|alex|daniel/i.test(v.name));
+      const defaultVoice = enVoices.find(v => v.lang === 'en-US') || enVoices[0];
+
+      document.getElementById('log').textContent += 
+        'Current Selected Female: ' + (femaleVoice ? femaleVoice.name : 'NONE') + '\n' +
+        'Current Selected Male: ' + (maleVoice ? maleVoice.name : 'NONE') + '\n' +
+        'Current Selected Default: ' + (defaultVoice ? defaultVoice.name : 'NONE') + '\n';
+      
+      document.title = 'TEST_VOICE_DONE';
+    }, 1000);
+  }
+  window.addEventListener('DOMContentLoaded', test);
+</script>
+</body>
+</html>

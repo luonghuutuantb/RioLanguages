@@ -1,0 +1,1434 @@
+/* ==========================================================================
+   EngMaster Responsive Stylesheet
+   Mobile Bottom Navigation, Tablet Layout & Breakpoints
+   ========================================================================== */
+
+/* Mobile Bottom Nav Hidden by default on desktop */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: rgba(13, 18, 32, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 4px;
+}
+
+/* Subgroup of Buttons (English / Chinese) */
+.mobile-nav-subgroup {
+  display: none;
+  align-items: center;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 3px;
+  width: 100%;
+  padding: 2px 4px;
+}
+
+.mobile-nav-subgroup::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-nav-subgroup.active {
+  display: flex !important;
+  animation: mNavFadeIn 0.2s ease-out;
+}
+
+@keyframes mNavFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 5px 8px;
+  min-width: 60px;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+  gap: 2px;
+}
+
+.mobile-nav-btn .m-icon {
+  font-size: 18px;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.mobile-nav-btn .m-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* English Active State */
+#mobile-subnav-en .mobile-nav-btn.active {
+  color: #818cf8;
+  background: rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+#mobile-subnav-en .mobile-nav-btn.active .m-icon {
+  transform: translateY(-1.5px) scale(1.08);
+}
+
+/* Chinese Active State */
+#mobile-subnav-zh .mobile-nav-btn.active {
+  color: #fb7185;
+  background: rgba(225, 29, 72, 0.15);
+  border-color: rgba(225, 29, 72, 0.3);
+}
+
+#mobile-subnav-zh .mobile-nav-btn.active .m-icon {
+  transform: translateY(-1.5px) scale(1.08);
+}
+
+/* ==========================================================================
+   Tablet & Medium Screens (max-width: 1024px)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 280px;
+  }
+
+  .modules-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .analytics-row {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-overview-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .views-wrapper {
+    padding: 24px;
+  }
+}
+
+/* ==========================================================================
+   Mobile Screens (max-width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* ---- Base & Layout ---- */
+  html {
+    font-size: 15px;
+    -webkit-text-size-adjust: 100%;
+    touch-action: pan-y pinch-zoom;
+  }
+
+  body {
+    overflow-x: clip;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y pinch-zoom;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+    padding-top: calc(58px + env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: calc(66px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ---- Top Header: LUÔN HIỂN THỊ CỐ ĐỊNH Ở TRÊN CÙNG ---- */
+  .top-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: calc(56px + env(safe-area-inset-top, 0px)) !important;
+    padding: env(safe-area-inset-top, 0px) 10px 0 10px !important;
+    background: rgba(13, 18, 32, 0.96) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+    z-index: 1000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+  }
+
+  .header-search-wrapper {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+  }
+
+  .header-search-wrapper input {
+    padding: 7px 28px 7px 32px !important;
+    font-size: 13px !important;
+    height: 36px !important;
+    width: 100% !important;
+  }
+
+  .header-search-wrapper .search-icon {
+    left: 10px !important;
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .search-shortcut {
+    display: none !important;
+  }
+
+  .global-search-dropdown {
+    position: fixed !important;
+    top: calc(56px + env(safe-area-inset-top, 0px) + 6px) !important;
+    left: 8px !important;
+    right: 8px !important;
+    width: auto !important;
+    max-width: calc(100vw - 16px) !important;
+    max-height: calc(100vh - 140px) !important;
+    border-radius: 16px !important;
+    z-index: 10001 !important;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(99, 102, 241, 0.25) !important;
+    background: rgba(15, 23, 42, 0.98) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .header-actions .voice-picker,
+  .header-actions .streak-pill,
+  .header-actions .mastered-pill {
+    display: none !important;
+  }
+
+  .lang-mode-switcher {
+    margin-right: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .mode-toggle-btn {
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+  }
+
+  /* ---- Mobile Bottom Nav: Gọn gàng thanh mảnh ---- */
+  .mobile-bottom-nav {
+    display: flex !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: calc(58px + env(safe-area-inset-bottom, 0px)) !important;
+    padding: 0 4px env(safe-area-inset-bottom, 0px) 4px !important;
+    background: rgba(13, 18, 32, 0.96) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.45) !important;
+    z-index: 999 !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0 !important;
+  }
+
+  /* ---- Views Wrapper ---- */
+  .views-wrapper {
+    padding: 12px;
+  }
+
+  /* ---- Dashboard Hero ---- */
+  .dashboard-hero {
+    padding: 20px 14px;
+    border-radius: 14px;
+  }
+
+  .hero-title {
+    font-size: 22px;
+    line-height: 1.3;
+  }
+
+  .hero-subtitle {
+    font-size: 13px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 16px;
+    font-size: 15px;
+    border-radius: 12px;
+  }
+
+  .hero-stats-banner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .stat-banner-item {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .stat-banner-value {
+    font-size: 20px;
+  }
+
+  .daily-highlights-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* ---- Module Cards: 1 Column Full Width on Mobile ---- */
+  .modules-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    margin-bottom: 28px !important;
+  }
+
+  .module-card {
+    padding: 16px 18px !important;
+    border-radius: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--glass-border) !important;
+  }
+
+  .module-icon-wrap {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 26px !important;
+    border-radius: 14px !important;
+    flex-shrink: 0 !important;
+    background: var(--bg-surface-elevated) !important;
+  }
+
+  .module-info {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+
+  .module-info h3 {
+    font-size: 16.5px !important;
+    font-weight: 700 !important;
+    margin-bottom: 4px !important;
+    color: var(--text-primary) !important;
+    line-height: 1.35 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  .module-info p {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 10px !important;
+    color: var(--text-secondary) !important;
+  }
+
+  .module-arrow {
+    font-size: 18px !important;
+    color: var(--text-muted) !important;
+    align-self: center !important;
+    margin-left: 8px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .module-progress {
+    gap: 5px !important;
+  }
+
+  .module-progress .progress-text {
+    font-size: 11.5px !important;
+    font-weight: 600 !important;
+  }
+
+  .module-meta {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    margin-top: 8px !important;
+  }
+
+  .module-meta .tag-pill {
+    font-size: 11px !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+  }
+
+  /* ---- Touch-friendly buttons ---- */
+  .btn, button {
+    min-height: 44px;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* ---- Vocab & Sentences ---- */
+  .vocab-container.grid-layout {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .vocab-card {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .vocab-word {
+    font-size: 20px;
+  }
+
+  .filter-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .filter-dropdown-group {
+    justify-content: space-between;
+  }
+
+  .view-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .view-header-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* ---- Flashcards ---- */
+  .flashcard-scene {
+    height: 380px;
+  }
+
+  .fc-main-text {
+    font-size: 26px;
+  }
+
+  .fc-phonetic {
+    font-size: 16px;
+  }
+
+  .fc-translation {
+    font-size: 14px;
+  }
+
+  .fc-actions-bar {
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-subtext {
+    display: none;
+  }
+
+  .fc-rating-btns {
+    gap: 8px;
+  }
+
+  .fc-rating-btn {
+    padding: 12px 16px;
+    font-size: 13px;
+    min-height: 48px;
+  }
+
+  /* ---- Quiz ---- */
+  .quiz-answers-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .quiz-arena-window {
+    padding: 18px 14px;
+    border-radius: 14px;
+  }
+
+  .quiz-question-text {
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .quiz-options-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .quiz-answer-btn {
+    padding: 14px 16px;
+    font-size: 14px;
+    border-radius: 10px;
+    text-align: left;
+    min-height: 52px;
+  }
+
+  /* ---- Grammar ---- */
+  .grammar-topics-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .grammar-topic-card {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+
+
+  /* ---- Phrases ---- */
+  .phrases-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  /* ---- Listening Studio ---- */
+  .listening-studio-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dialogue-player-col,
+  .dialogue-test-col {
+    height: auto;
+    min-height: unset;
+  }
+
+  .dialogue-messages-stream {
+    max-height: 480px;
+  }
+
+  .test-active-mode-container {
+    max-height: 600px;
+  }
+
+  .carousel-card {
+    width: 200px;
+  }
+
+  .dialogue-turn {
+    max-width: 96%;
+  }
+
+  .dialogue-characters-bar {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .dialogue-buttons-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .dialogue-main-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .dialogue-speed-group {
+    justify-content: center;
+  }
+
+  .listening-player-area {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .listening-quiz-panel {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  /* ---- Stats ---- */
+  .stats-overview-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .analytics-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* ---- Search Modal ---- */
+  .search-modal {
+    width: 96%;
+    max-width: 96%;
+    margin: 8px auto;
+    border-radius: 14px;
+  }
+
+  .search-modal-header input {
+    font-size: 15px;
+  }
+
+  /* ==========================================================================
+     MOBILE FULL-WIDTH BOTTOM-SHEET MODALS (NO WASTED EMPTY SPACE)
+     ========================================================================== */
+  .modal-overlay,
+  .grammar-reader-modal-overlay,
+  .grammar-quiz-modal-overlay {
+    padding: 0 !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    background: rgba(0, 0, 0, 0.85) !important;
+  }
+
+  /* Grammar Theory Reader Modal on Mobile */
+  .grammar-reader-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 95vh !important;
+    max-height: 95vh !important;
+    border-radius: 20px 20px 0 0 !important;
+    margin: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.7) !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .grammar-reader-header {
+    padding: 14px 16px 10px 16px !important;
+    border-bottom: 1px solid var(--glass-border) !important;
+    flex-shrink: 0 !important;
+  }
+
+  .grammar-reader-header-left h2 {
+    font-size: 17px !important;
+    line-height: 1.35 !important;
+    margin-bottom: 6px !important;
+  }
+
+  .grammar-reader-meta {
+    gap: 6px !important;
+  }
+
+  .grammar-reader-meta span,
+  .grammar-badge {
+    font-size: 11px !important;
+    padding: 3px 8px !important;
+  }
+
+  .grammar-reader-close-btn {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 16px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .grammar-reader-scroll {
+    padding: 14px 14px 20px 14px !important;
+    flex: 1 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .grammar-reader-intro {
+    padding: 12px 14px !important;
+    gap: 10px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .reader-overview-icon {
+    font-size: 26px !important;
+  }
+
+  .reader-overview-content h4 {
+    font-size: 14px !important;
+  }
+
+  .reader-overview-content p {
+    font-size: 13px !important;
+  }
+
+  .grammar-theory-section {
+    padding: 14px 12px !important;
+    margin-bottom: 14px !important;
+    border-radius: 12px !important;
+  }
+
+  .theory-heading {
+    font-size: 15px !important;
+    margin-bottom: 10px !important;
+    padding-bottom: 6px !important;
+  }
+
+  .theory-body {
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+  }
+
+  .theory-body code {
+    font-size: 12.5px !important;
+    padding: 3px 6px !important;
+    display: inline-block !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    line-height: 1.4 !important;
+  }
+
+  .grammar-example-box {
+    padding: 10px 12px !important;
+    margin: 8px 0 12px 0 !important;
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+  }
+
+  .grammar-reader-footer {
+    padding: 10px 14px calc(14px + env(safe-area-inset-bottom, 0px)) 14px !important;
+    display: flex !important;
+    gap: 10px !important;
+    align-items: center !important;
+    background: var(--bg-card) !important;
+    border-top: 1px solid var(--glass-border) !important;
+    flex-shrink: 0 !important;
+  }
+
+  .grammar-reader-footer .grammar-btn {
+    min-height: 46px !important;
+    border-radius: 12px !important;
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+  }
+
+  .grammar-reader-footer .grammar-btn-neutral {
+    flex: 0 0 auto !important;
+    padding: 10px 16px !important;
+  }
+
+  .grammar-reader-footer .grammar-btn-quiz {
+    flex: 1 !important;
+    padding: 10px 14px !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* Grammar Interactive Quiz Modal on Mobile */
+  .grammar-quiz-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 95vh !important;
+    max-height: 95vh !important;
+    border-radius: 20px 20px 0 0 !important;
+    margin: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    padding: 20px 16px calc(16px + env(safe-area-inset-bottom, 0px)) 16px !important;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.7) !important;
+  }
+
+  /* AI Settings Modal on Mobile */
+  .modal-ai-settings {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 92vh !important;
+    border-radius: 20px 20px 0 0 !important;
+    margin: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+  }
+
+  .modal-ai-settings .modal-header {
+    padding: 14px 16px !important;
+  }
+
+  .modal-ai-settings .modal-body {
+    padding: 16px !important;
+    max-height: calc(92vh - 130px) !important;
+  }
+
+  .modal-ai-settings .modal-footer {
+    padding: 10px 16px calc(14px + env(safe-area-inset-bottom, 0px)) 16px !important;
+  }
+
+  /* Global Search Modal on Mobile */
+  .search-modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 90vh !important;
+    border-radius: 20px 20px 0 0 !important;
+    margin: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+  }
+
+  /* ---- Thin scrollbars ---- */
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+
+  /* ---- Sentences on Mobile ---- */
+  .sentence-card {
+    padding: 10px 12px !important;
+    gap: 5px !important;
+    border-radius: 12px !important;
+  }
+
+  .sentence-card-header {
+    gap: 6px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .sentence-card-topic {
+    font-size: 10px !important;
+    max-width: calc(100% - 130px) !important;
+  }
+
+  .sentence-card-controls {
+    gap: 4px !important;
+  }
+
+  .sentence-card-controls .audio-round-btn,
+  .sentence-card-controls .bookmark-icon-btn,
+  .sentence-card-controls .master-icon-btn {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 13px !important;
+  }
+
+  .sentence-en-text {
+    font-size: 14.5px !important;
+    line-height: 1.35 !important;
+    margin-bottom: 2px !important;
+  }
+
+  .sentence-vi-text {
+    font-size: 12.5px !important;
+    line-height: 1.38 !important;
+  }
+
+  .sentence-hint-text {
+    font-size: 11px !important;
+    padding: 2px 6px !important;
+    margin-top: 2px !important;
+  }
+
+  .sentences-container {
+    gap: 8px !important;
+  }
+
+  .topic-chips-carousel {
+    padding: 0 0 4px 0 !important;
+    margin-bottom: 8px !important;
+    gap: 6px !important;
+  }
+
+  .topic-chip {
+    padding: 5px 11px !important;
+    font-size: 11.5px !important;
+  }
+}
+
+/* ==========================================================================
+   Very Small Screens (max-width: 380px) - compact phones
+   ========================================================================== */
+@media (max-width: 380px) {
+  .m-lang-btn {
+    padding: 3px 10px;
+    font-size: 10px;
+  }
+
+  .mobile-nav-btn {
+    min-width: 52px;
+    padding: 4px 5px;
+  }
+
+  .mobile-nav-btn .m-icon {
+    font-size: 17px;
+  }
+
+  .mobile-nav-btn .m-label {
+    font-size: 8.5px;
+  }
+
+  .hero-title {
+    font-size: 19px;
+  }
+
+  .hero-stats-banner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .modules-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fc-main-text {
+    font-size: 22px;
+  }
+
+  .flashcard-scene {
+    height: 320px;
+  }
+}
+
+/* ==========================================================================
+   MOBILE OVERFLOW FIX — Prevent horizontal scroll / content cut-off
+   Applied globally for Android WebView
+   ========================================================================== */
+
+/* Global no horizontal overflow — use clip on body only, not html (html overflow:hidden breaks touch on Samsung/Android) */
+body {
+  overflow-x: clip;
+  max-width: 100vw;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Fix quiz answer buttons being cut off */
+@media (max-width: 768px) {
+  /* Force all buttons/cards to fit inside screen */
+  .quiz-choice-btn {
+    width: 100%;
+    min-width: 0;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    padding: 12px 14px;
+    font-size: 14px;
+    align-items: flex-start;
+  }
+
+  .quiz-answers-grid {
+    grid-template-columns: 1fr;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Quiz question text wraps properly */
+  .quiz-question-text,
+  .quiz-fill-prompt,
+  .quiz-q-sentence {
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+
+  /* Quiz arena — no horizontal overflow */
+  .quiz-arena-window,
+  .quiz-session-wrapper,
+  .quiz-progress-section {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* All cards/containers fit screen */
+  .vocab-card,
+  .sentence-card,
+  .phrase-card,
+  .grammar-topic-card,
+  .module-card,
+  .analytics-card,
+  .daily-card {
+    max-width: 100%;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Vocab word — wrap if too long */
+  .vocab-word,
+  .vocab-definition,
+  .vocab-example {
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+  }
+
+  /* Sentence text wraps */
+  .sentence-en,
+  .sentence-vi,
+  .sentence-text {
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 100%;
+  }
+
+  /* Table inside grammar don't overflow */
+  table {
+    display: block;
+    overflow-x: auto;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Listening section — no overflow */
+  .listening-studio-container,
+  .listening-player-area,
+  .dialogue-turn-text {
+    max-width: 100%;
+    overflow-x: hidden;
+    word-wrap: break-word;
+  }
+
+  /* Main content area */
+  .main-content,
+  .views-wrapper,
+  section,
+  .app-layout {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Fix flex items shrinking / overflowing */
+  .filter-toolbar,
+  .view-header,
+  .hero-actions {
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+
+  /* Input / select fit screen */
+  input, select, textarea {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Grammar reader content */
+  .grammar-reader-scroll,
+  .grammar-reader-body {
+    max-width: 100%;
+    overflow-x: hidden;
+    word-wrap: break-word;
+  }
+
+  /* Code/mono text in grammar */
+  code, pre {
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  /* ==========================================================================
+     AI English Live Conversation Responsive Layout
+     ========================================================================== */
+  #view-aichat {
+    padding-bottom: 20px;
+  }
+
+  .ai-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .ai-persona-selector-section {
+    margin-bottom: 12px;
+  }
+
+  .ai-persona-card {
+    min-width: 175px;
+    padding: 8px 12px;
+    gap: 10px;
+  }
+
+  .persona-avatar-box {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    font-size: 19px;
+  }
+
+  .persona-name {
+    font-size: 13.5px;
+  }
+
+  .persona-role {
+    font-size: 11px;
+  }
+
+  /* Active Persona Bar (Header inside Chat Studio) */
+  .ai-active-persona-bar {
+    padding: 10px 14px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .ai-active-meta {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .ai-active-avatar {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    font-size: 20px;
+  }
+
+  .ai-active-text {
+    flex: 1;
+    min-width: 0;
+    gap: 2px;
+  }
+
+  .ai-name-row {
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+
+  .ai-name-row strong {
+    font-size: 14.5px;
+  }
+
+  .ai-active-badge {
+    font-size: 10px;
+    padding: 2px 7px;
+    letter-spacing: 0.2px;
+  }
+
+  .ai-active-role {
+    font-size: 11px;
+    max-width: 220px;
+  }
+
+  .ai-active-actions {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .ai-btn-subtle-new {
+    flex: 1;
+    justify-content: center;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .ai-active-level {
+    font-size: 11px;
+    padding: 4px 8px;
+    flex-shrink: 0;
+  }
+
+  .ai-chat-studio-card {
+    height: calc(100vh - 230px);
+    min-height: 480px;
+    border-radius: var(--radius-xl);
+  }
+
+  .ai-messages-stream {
+    padding: 14px 12px;
+    gap: 14px;
+  }
+
+  .ai-chat-bubble-row {
+    max-width: 92%;
+    gap: 8px;
+  }
+
+  .bubble-content-card {
+    padding: 10px 14px;
+  }
+
+  .bubble-text {
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  .bubble-vi-sub {
+    font-size: 12px;
+  }
+
+  .ai-input-dock {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .ai-mic-trigger-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    font-size: 18px;
+  }
+
+  .ai-send-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+  }
+
+  .ai-chat-textarea {
+    font-size: 14px;
+  }
+
+  /* =========================================================================
+     FLASHCARD SRS RESPONSIVE OPTIMIZATION (ENGLISH SECTION)
+     ========================================================================= */
+  #view-flashcard {
+    padding-bottom: 24px;
+  }
+
+  #view-flashcard .view-header {
+    margin-bottom: 10px;
+    gap: 8px;
+  }
+
+  #view-flashcard .view-title {
+    font-size: 18px !important;
+    font-weight: 800;
+  }
+
+  #view-flashcard .view-subtitle {
+    display: none !important; /* Hide long subtitle on mobile to save vertical space */
+  }
+
+  /* Deck Selector: 2 equal columns, perfectly fit without overflow */
+  .flashcard-deck-selector {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .flashcard-deck-selector .custom-select {
+    width: 100% !important;
+    min-width: 0 !important;
+    font-size: 12px !important;
+    padding: 7px 10px !important;
+    height: 38px !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    background-position: right 8px center !important;
+  }
+
+  /* Session Progress Bar */
+  .fc-session-bar {
+    gap: 8px !important;
+    margin-bottom: 12px !important;
+    padding: 0 2px;
+  }
+
+  .fc-counter {
+    font-size: 12.5px !important;
+    white-space: nowrap;
+  }
+
+  .fc-progress-track {
+    height: 6px !important;
+  }
+
+  .fc-shortcuts-hint {
+    display: none !important; /* Hide desktop keyboard hints on mobile screen */
+  }
+
+  .fc-nav-btn {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    font-size: 18px !important;
+  }
+
+  /* 3D Flip Card Scene & Faces */
+  .flashcard-arena {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .flashcard-scene {
+    height: clamp(270px, 45vh, 330px) !important;
+    margin-bottom: 12px !important;
+  }
+
+  .flashcard-face {
+    padding: 18px 16px !important;
+    border-radius: 18px !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35) !important;
+  }
+
+  .fc-card-top {
+    margin-bottom: 6px !important;
+  }
+
+  .fc-level-badge, .fc-type-tag {
+    font-size: 11px !important;
+    padding: 3px 8px !important;
+  }
+
+  .fc-bookmark-btn {
+    font-size: 20px !important;
+    padding: 2px;
+  }
+
+  .fc-main-text {
+    font-size: clamp(26px, 7.5vw, 36px) !important;
+    line-height: 1.15 !important;
+    margin-bottom: 4px !important;
+    word-break: break-word;
+  }
+
+  .fc-ipa-text {
+    font-size: 15px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .fc-audio-btn {
+    padding: 7px 16px !important;
+    font-size: 12.5px !important;
+    border-radius: 30px !important;
+  }
+
+  .fc-card-bottom {
+    margin-top: auto;
+  }
+
+  .fc-flip-hint {
+    font-size: 11px !important;
+    opacity: 0.8 !important;
+    color: var(--text-muted) !important;
+  }
+
+  /* Back Card Details */
+  .fc-back-center {
+    justify-content: center !important;
+  }
+
+  .fc-meaning-vi {
+    font-size: clamp(17px, 5vw, 22px) !important;
+    line-height: 1.35 !important;
+    margin-bottom: 10px !important;
+  }
+
+  .fc-example-box {
+    padding: 10px 12px !important;
+    border-radius: 12px !important;
+    max-height: 120px !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .fc-example-box .example-en {
+    font-size: 13px !important;
+    margin-bottom: 4px !important;
+    line-height: 1.4 !important;
+  }
+
+  .fc-example-box .example-vi {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* SRS Evaluation Bottom Buttons */
+  .fc-actions-bar {
+    gap: 8px !important;
+  }
+
+  .fc-btn {
+    padding: 9px 4px !important;
+    border-radius: 12px !important;
+    min-height: 46px !important;
+    touch-action: manipulation;
+  }
+
+  .fc-btn:active {
+    transform: scale(0.96) !important;
+  }
+
+  .btn-subtext {
+    font-size: 10px !important;
+    letter-spacing: 0.2px;
+  }
+
+  .btn-maintext {
+    font-size: 13px !important;
+    font-weight: 800 !important;
+  }
+
+  /* Chinese View Mobile Area Optimization */
+  #view-chinese .view-subtitle {
+    display: none !important;
+  }
+
+  #view-chinese .view-header {
+    margin-bottom: 8px !important;
+  }
+
+  .chinese-container {
+    gap: 10px !important;
+  }
+}

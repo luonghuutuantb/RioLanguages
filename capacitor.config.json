@@ -1,0 +1,12 @@
+{
+  "appId": "com.rio.languages",
+  "appName": "Rio Languages",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https",
+    "iosScheme": "ionic"
+  },
+  "ios": {
+    "contentInset": "automatic"
+  }
+}
